@@ -28,11 +28,28 @@ class Item extends PureComponent {
     }
   }
 
+  //STYLE SURVEY -> counter will update styles onClick
+  // constructor(props) {
+  //   super(props)
+
+  //   this.state = {
+  //     isLoading: false,
+  //     style1: 0,
+  //     style2: 0,
+  //     style3: 0,
+  //     style4: 0,
+  //   }
+  // }
+
+  //Using this function (onClickSubscribe) -- Adding a verifyUserStyle helper function
+  // if user.style -> onclicksubscribe : redirect to styleSurvey page
+  //? redirect to style 'component' -> pass onClickSubscribe (prop) & crateId (prop) - onSubmit of survey onclicksubcribe(crateid)
+
   onClickSubscribe = (crateId) => {
     this.setState({
       isLoading: true
     })
-
+// messageShow('creating style survey!)
     this.props.messageShow('Subscribing, please wait...')
 
     this.props.create({ crateId })
@@ -41,7 +58,7 @@ class Item extends PureComponent {
           this.props.messageShow(response.data.errors[0].message)
         } else {
           this.props.messageShow('Subscribed successfully.')
-
+// Create a new route to style survey -> this.props.history.push(userRoutes.styleSurvey.path)
           this.props.history.push(userRoutes.subscriptions.path)
         }
       })
@@ -77,6 +94,7 @@ class Item extends PureComponent {
           <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
             <Button
               theme="primary"
+              //Looks like binding is being used, add binding to any globally scoped functions
               onClick={this.onClickSubscribe.bind(this, id)}
               type="button"
               disabled={ isLoading }
@@ -98,11 +116,26 @@ Item.propTypes = {
   messageHide: PropTypes.func.isRequired
 }
 
+//STYLE SURVEY -> 
+// Survey.propTypes = {
+//   user: PropTypes.object.isRequired,
+//   messageShow: PropTypes.func.isRequired,
+//   messageHide: PropTypes.func.isRequired,
+//   onClickSubscribe: PropTypes.func.isRequired
+// }
+
 // Component State
 function itemState(state) {
   return {
     user: state.user
   }
 }
+
+//STYLE SURVEY STATE 
+// function surveyState(state) {
+//   return {
+//     user: state.user
+//   }
+// }
 
 export default connect(itemState, { create, messageShow, messageHide })(withRouter(Item))

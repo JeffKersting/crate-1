@@ -60,3 +60,15 @@ function profileState(state) {
 }
 
 export default connect(profileState, { logout })(Profile)
+
+//ADD USER STYLE TO PROFILE - 
+  // < H4 style = {{ marginBottom: '0.5em' }}> { props.user.details.style }</H4 >
+
+  //   <p style={{ color: grey2, marginBottom: '2em' }}>{props.user.details.style}</p>
+
+//ADD RETAKE SURVEY BUTTON -> 
+
+  // < Link to = { userRoutes.surveyPage.path } >
+  //   <Button theme="primary">Retake Survey</Button>
+  // </Link >
+

@@ -21,12 +21,15 @@ const productsInitialState = {
   isLoading: false,
   error: null,
   list: []
+  //data: []
 }
+//SurveyIntialState ^^^
 
 // State
 export const products = (state = productsInitialState, action) => {
   switch (action.type) {
     case PRODUCTS_GET_LIST_REQUEST:
+      //SURVEY_DATA_REQUEST
       return {
         ...state,
         isLoading: action.isLoading,
@@ -34,6 +37,7 @@ export const products = (state = productsInitialState, action) => {
       }
 
     case PRODUCTS_GET_LIST_RESPONSE:
+       //SURVEY_DATA_RESPONSE
       return {
         ...state,
         isLoading: false,
@@ -42,6 +46,7 @@ export const products = (state = productsInitialState, action) => {
       }
 
     case PRODUCTS_GET_LIST_FAILURE:
+      //SURVEY_DATA_FAILURE
       return {
         ...state,
         isLoading: false,
@@ -49,6 +54,7 @@ export const products = (state = productsInitialState, action) => {
       }
 
     case PRODUCTS_GET_LIST_RESET:
+      //SURVEY_DATA_RESET
       return Object.assign({}, productsInitialState)
 
     default:

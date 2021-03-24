@@ -20,6 +20,8 @@ export const PRODUCTS_GET_RELATED_LIST_FAILURE = 'PRODUCTS/GET_RELATED_LIST_FAIL
 // Actions
 
 // Get list of products
+
+//SURVEY DATA - SIMILAR TO getList**
 export function getList(isLoading = true, forceRefresh = false) {
   return dispatch => {
     dispatch({
@@ -31,6 +33,7 @@ export function getList(isLoading = true, forceRefresh = false) {
     return axios.post(routeApi, query({
       operation: 'products',
       fields: ['id', 'name', 'slug', 'description', 'image', 'createdAt', 'updatedAt']
+      //fields: [id, style, image]**
     }))
       .then(response => {
         if (response.status === 200) {
@@ -39,6 +42,7 @@ export function getList(isLoading = true, forceRefresh = false) {
             error: null,
             isLoading: false,
             list: response.data.data.products
+            //data: response.data.data.surveyItems**
           })
         } else {
           dispatch({

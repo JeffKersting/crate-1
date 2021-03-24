@@ -9,3 +9,15 @@ export default {
     auth: true
   }
 }
+
+// // App Imports
+// import SurveyDisplay from '../../modules/Survey/SurveyDisplay'
+
+// // Crate routes
+// export default {
+//   list: {
+//     path: '/survey',
+//     component: SurveyDisplay,
+//     auth: true
+//   }
+// }
