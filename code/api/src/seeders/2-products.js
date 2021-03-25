@@ -2,6 +2,7 @@
 
 const params = require('../config/params');
 
+// Update seed data to include column Style
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('products', [

@@ -1,0 +1,1 @@
+// Make a create mutation to set initial seed datas

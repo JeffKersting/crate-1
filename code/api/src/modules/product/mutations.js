@@ -38,6 +38,8 @@ export const productCreate = {
       name: 'image',
       type: GraphQLString
     }
+    
+    // Add Style STRING column
   },
   resolve: create
 }

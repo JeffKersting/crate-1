@@ -2,6 +2,8 @@
 
 // User
 module.exports = function(sequelize, DataTypes) {
+  // Add Style as a String column to a User
+    // Set Style to NULL default
   let User = sequelize.define('users', {
     name: {
       type: DataTypes.STRING

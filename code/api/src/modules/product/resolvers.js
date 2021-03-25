@@ -52,6 +52,7 @@ export async function create(parentValue, { name, slug, description, type, gende
       type,
       gender,
       image
+      // Style
     })
   } else {
     throw new Error('Operation denied.')
@@ -69,6 +70,7 @@ export async function update(parentValue, { id, name, slug, description, type, g
         type,
         gender,
         image
+        // Style
       },
       { where: { id } }
     )
@@ -97,3 +99,5 @@ export async function remove(parentValue, { id }, { auth }) {
 export async function getTypes() {
   return Object.values(params.product.types)
 }
+
+// May Add Get Product By Style

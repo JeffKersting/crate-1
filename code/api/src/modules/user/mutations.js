@@ -23,6 +23,7 @@ export const userSignup = {
       name: 'password',
       type: GraphQLString
     }
+    // Style string column
   },
   resolve: create
 }
@@ -38,3 +39,7 @@ export const userRemove = {
   },
   resolve: remove
 }
+
+// Update Style
+  // Args will be a String sent from FE and User ID
+  // Use resolver function StyleUpdate

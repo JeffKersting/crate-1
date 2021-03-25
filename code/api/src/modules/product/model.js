@@ -21,5 +21,6 @@ module.exports = function(sequelize, DataTypes) {
     image: {
       type: DataTypes.TEXT
     }
+    // Add Style TEXT column
   })
 }
