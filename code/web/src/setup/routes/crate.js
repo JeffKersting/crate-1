@@ -9,3 +9,14 @@ export default {
     auth: true
   }
 }
+
+// import List from '../../modules/Survey/Survey'
+
+// Crate routes
+// export default {
+//   list: {
+//     path: '/survey',
+//     component: List,
+//     auth: true
+//   }
+// }

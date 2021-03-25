@@ -22,6 +22,7 @@ const productsInitialState = {
   error: null,
   list: []
 }
+//SurveyInitialState ^^^
 
 // State
 export const products = (state = productsInitialState, action) => {

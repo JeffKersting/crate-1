@@ -27,10 +27,11 @@ export function getList(isLoading = true, forceRefresh = false) {
       error: null,
       isLoading
     })
-
+// Survey Data very similar to get list
     return axios.post(routeApi, query({
       operation: 'products',
       fields: ['id', 'name', 'slug', 'description', 'image', 'createdAt', 'updatedAt']
+      // fields: [id, style, image]**
     }))
       .then(response => {
         if (response.status === 200) {
@@ -39,6 +40,7 @@ export function getList(isLoading = true, forceRefresh = false) {
             error: null,
             isLoading: false,
             list: response.data.data.products
+            //data: response.data.data.surveyItems**
           })
         } else {
           dispatch({

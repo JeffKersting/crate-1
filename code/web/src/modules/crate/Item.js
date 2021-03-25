@@ -28,11 +28,28 @@ class Item extends PureComponent {
     }
   }
 
+  // STYLE SURVEY => counter will update the styles in the state 
+  // constructor(props) {
+  //   super(props)
+
+  //   this.state = {
+  //     isLoading: false,
+        //  style1: 0,
+        //  style2: 0,
+        //  style3: 0,
+        //  style4: 0
+  //   }
+  // }
+
+  // Add a verifyUserStyle helper function 
+  // if the user.style exists this onClickSubscribe() will redirect to the style survey 
+  // onSubmit of the style survey the the props are passed 
   onClickSubscribe = (crateId) => {
     this.setState({
       isLoading: true
     })
 
+    // messageShow('creating style survey')
     this.props.messageShow('Subscribing, please wait...')
 
     this.props.create({ crateId })
@@ -42,6 +59,7 @@ class Item extends PureComponent {
         } else {
           this.props.messageShow('Subscribed successfully.')
 
+      // Create a route to the style survey => this.props.history.push(userRoutes.styleSurvey.path)
           this.props.history.push(userRoutes.subscriptions.path)
         }
       })
@@ -77,6 +95,7 @@ class Item extends PureComponent {
           <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
             <Button
               theme="primary"
+              // Looks like binding is being used, add binding to any globally scoped functions
               onClick={this.onClickSubscribe.bind(this, id)}
               type="button"
               disabled={ isLoading }
@@ -97,6 +116,15 @@ Item.propTypes = {
   messageShow: PropTypes.func.isRequired,
   messageHide: PropTypes.func.isRequired
 }
+
+//STYLE SURVEY => 
+// Survey.propTypes = {
+//   crate: PropTypes.object.isRequired,
+//   user: PropTypes.object.isRequired,
+//   messageShow: PropTypes.func.isRequired,
+//   messageHide: PropTypes.func.isRequired,
+//   onCLickSubscribe: PropTypes.func.isRequired
+// }
 
 // Component State
 function itemState(state) {

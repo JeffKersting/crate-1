@@ -53,6 +53,7 @@ export async function login(parentValue, { email, password }) {
       return {
         user: userDetails,
         token: jwt.sign(userDetailsToken, serverConfig.secret)
+        // This is where the token is being generated 
       }
     }
   }

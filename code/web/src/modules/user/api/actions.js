@@ -14,6 +14,10 @@ export const LOGOUT = 'AUTH/LOGOUT'
 
 // Actions
 
+// New ACTION IN SURVEY - PATCH(routeApi, query({
+// return axios.post(routeAPI)
+// })
+
 // Set a user after login or using localStorage token
 export function setUser(token, user) {
   if (token) {
@@ -37,6 +41,7 @@ export function login(userCredentials, isLoading = true) {
       operation: 'userLogin',
       variables: userCredentials,
       fields: ['user {name, email, role}', 'token']
+      // fields: ['user {name, email, role, style}', 'token']
     }))
       .then(response => {
         let error = ''
