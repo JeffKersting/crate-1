@@ -1,6 +1,7 @@
 'use strict'
 
 // User
+// Defines user model and attaches datatypes
 module.exports = function(sequelize, DataTypes) {
   let User = sequelize.define('users', {
     name: {
@@ -15,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     role: {
       type: DataTypes.TEXT
     }
+    // Add style with datatype TEXT
   })
 
   User.associate = function(models) {

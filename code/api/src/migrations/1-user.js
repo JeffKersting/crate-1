@@ -33,3 +33,5 @@ module.exports = {
     return queryInterface.dropTable('users');
   }
 }
+
+// Add style (type: string) to users model

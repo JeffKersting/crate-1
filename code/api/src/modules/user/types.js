@@ -40,3 +40,6 @@ const UserGenderType = new GraphQLObjectType({
 })
 
 export { UserType, UserLoginType, UserGenderType }
+
+
+// update to include user style

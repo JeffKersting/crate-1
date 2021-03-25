@@ -8,14 +8,16 @@ import params from '../../config/params'
 import models from '../../setup/models'
 
 // Create
+// parent value 
+// parentValue == userSignup????
 export async function create(parentValue, { name, email, password }) {
   // Users exists with same email check
-  const user = await models.User.findOne({ where: { email } })
+  const user = await models.User.findOne({ where: { email } }) // 
 
   if (!user) {
     // User does not exists
     const passwordHashed = await bcrypt.hash(password, serverConfig.saltRounds)
-
+    // bcrypt hashes password
     return await models.User.create({
       name,
       email,
@@ -26,6 +28,8 @@ export async function create(parentValue, { name, email, password }) {
     throw new Error(`The email ${ email } is already registered. Please try to login.`)
   }
 }
+
+// userStyleUpdate mutation gets resolved here
 
 export async function login(parentValue, { email, password }) {
   const user = await models.User.findOne({ where: { email } })
@@ -51,6 +55,7 @@ export async function login(parentValue, { email, password }) {
       }
 
       return {
+        // successful login 
         user: userDetails,
         token: jwt.sign(userDetailsToken, serverConfig.secret)
       }
@@ -77,3 +82,6 @@ export async function remove(parentValue, { id }) {
 export async function getGenders() {
   return Object.values(params.user.gender)
 }
+
+
+// Add patch for updating style from NULL -> style
