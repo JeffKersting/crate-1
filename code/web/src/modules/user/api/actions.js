@@ -37,6 +37,16 @@ export function login(userCredentials, isLoading = true) {
       operation: 'userLogin',
       variables: userCredentials,
       fields: ['user {name, email, role}', 'token']
+
+      /* ADD USER STYLE TO FIELDS
+
+      return axios.post(routeApi, query({
+        operation: 'userStyle',
+        variables: userCredentials,
+        fields: ['user { survey }', 'token']
+
+       */
+
     }))
       .then(response => {
         let error = ''

@@ -17,6 +17,20 @@ import userRoutes from '../../setup/routes/user'
 import { messageShow, messageHide } from '../common/api/actions'
 import { create } from '../subscription/api/actions'
 
+/*
+
+We will need to update the onClickSubscribe function to run a conditional for existence of user style.
+
+If the user has a style, continue the flow as normal.
+
+If user has no selected style, redirect to survey page.
+Will need to pass the onClickSubscribe function with crateId to the survey page.
+
+Upon survey completion, will then fire the onClickSubscribe function as normally intended.
+
+*/
+
+
 // Component
 class Item extends PureComponent {
 
@@ -32,6 +46,8 @@ class Item extends PureComponent {
     this.setState({
       isLoading: true
     })
+    
+    /* UPDATE MESSAGESHOW TO DISPLAY REDIRECT TO SURVEY MESSAGE */
 
     this.props.messageShow('Subscribing, please wait...')
 
@@ -41,6 +57,8 @@ class Item extends PureComponent {
           this.props.messageShow(response.data.errors[0].message)
         } else {
           this.props.messageShow('Subscribed successfully.')
+
+          /* WILL NEED TO USE history.push() ON SURVEY PAGE */
 
           this.props.history.push(userRoutes.subscriptions.path)
         }
@@ -77,6 +95,9 @@ class Item extends PureComponent {
           <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
             <Button
               theme="primary"
+
+              /* MATCH BINDING ON SURVEY BUTTON CLICK */
+
               onClick={this.onClickSubscribe.bind(this, id)}
               type="button"
               disabled={ isLoading }
