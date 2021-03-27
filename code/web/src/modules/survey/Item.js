@@ -21,7 +21,8 @@ class Item extends PureComponent {
     super(props)
 
     this.state = {
-      isLoading: false
+      isLoading: false,
+      style:
     }
   }
 
@@ -46,62 +47,17 @@ class Item extends PureComponent {
 
 
   onClickSubscribe = (crateId) => {
-    this.setState({
-      isLoading: true
-    })
 
-    this.props.messageShow('Subscribing, please wait...')
 
-    this.props.create({ crateId })
-      .then(response => {
-        if (response.data.errors && response.data.errors.length > 0) {
-          this.props.messageShow(response.data.errors[0].message)
-        } else {
-          this.props.messageShow('Subscribed successfully.')
 
-          this.props.history.push(userRoutes.subscriptions.path)
-        }
-      })
-      .catch(error => {
-        this.props.messageShow('There was some error subscribing to this crate. Please try again.')
-      })
-      .then(() => {
-        this.setState({
-          isLoading: false
-        })
-
-        window.setTimeout(() => {
-          this.props.messageHide()
-        }, 5000)
-      })
   }
 
   render() {
-    const { id, name, description } = this.props.crate
     const { isLoading } = this.state
 
     return (
       <Card style={{ width: '18em', backgroundColor: white }}>
-        <p style={{ padding: '2em 3em 0 3em' }}>
-          <img src={`${ APP_URL }/images/crate.png`} alt={name} style={{ width: '100%' }}/>
-        </p>
 
-        <div style={{ padding: '1em 1.2em' }}>
-          <H4 font="secondary" style={{ color: black }}>{name}</H4>
-
-          <p style={{ color: grey2, marginTop: '1em' }}>{description}</p>
-
-          <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
-            <Button
-              theme="primary"
-              onClick={this.onClickSubscribe.bind(this, id)}
-              type="button"
-              disabled={ isLoading }
-            >
-              <Icon size={1.2} style={{ color: white }}>add</Icon> Subscribe
-            </Button>
-          </p>
-        </div>
       </Card>
     )
   }
