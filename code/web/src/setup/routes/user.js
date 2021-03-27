@@ -26,5 +26,11 @@ export default {
     path: '/user/subscriptions',
     component: Subscriptions,
     auth: true
+  },
+
+  survey: {
+    path: '/user/survey',
+    component: Survey,
+    auth: true
   }
 }

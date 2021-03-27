@@ -28,6 +28,26 @@ class Item extends PureComponent {
     }
   }
 
+  // this.state.user.style EVENTUAL CHECK
+  validateUserStyle = (crateId) => {
+
+    if(true) {
+      onClickSubscribe(createId)
+      return
+    } else {
+      this.setState({
+        isLoading: true
+      })
+      this.props.messageShow('Redirecting to survey page...')
+      this.props.history.push(userRoutes.survey.path, crateId)
+
+    }
+
+    
+
+  }
+
+
   onClickSubscribe = (crateId) => {
     this.setState({
       isLoading: true
