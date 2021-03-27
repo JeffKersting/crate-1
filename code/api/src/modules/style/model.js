@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     gender: {
       type: DataTypes.INTEGER
     },
-    style: {
+    type: {
       type: DataTypes.STRING
     }
   })
