@@ -1,82 +1,38 @@
 // Imports
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
 
 // UI Imports
-import Card from '../../ui/card/Card'
+import { Grid, GridCell } from '../../ui/grid'
 import { white, grey2, black } from '../../ui/common/colors'
+import Card from '../../ui/card/Card'
+import Tile from '../../ui/image/Tile'
+import { level0 } from '../../ui/common/shadows'
+
 
 // App Imports
-import { APP_URL } from '../../setup/config/env'
-import userRoutes from '../../setup/routes/user'
-import { messageShow, messageHide } from '../common/api/actions'
+import { routeImage } from '../../setup/routes/index'
+
 
 
 // Component
-class Item extends PureComponent {
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isLoading: false,
-    }
-  }
-
-  // this.state.user.style EVENTUAL CHECK
-  validateUserStyle = (crateId) => {
-
-    if(true) {
-      onClickSubscribe(crateId)
-      return
-    } else {
-      this.setState({
-        isLoading: true
-      })
-      this.props.messageShow('Redirecting to survey page...')
-      this.props.history.push(userRoutes.survey.path, crateId)
-
-    }
-
-
-
-  }
-
-
-  onClickSubscribe = (crateId) => {
-
-
-
-  }
-
-  render() {
-    const { isLoading } = this.state
-
-    return (
-      <Card style={{ width: '18em', backgroundColor: white }}>
-
-      </Card>
-    )
-  }
+const Item = ({id, image, shadow, setSelectedItem}) => {
+  console.log(setSelectedItem)
+  return (
+    <GridCell style={{height: '250px'}}>
+        <Tile id={id} image={routeImage + image} onClick={event => setSelectedItem(event)} shadow={shadow || level0}/> 
+    </GridCell>
+  )
 }
 
 // Component Properties
 Item.propTypes = {
-  crate: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  messageShow: PropTypes.func.isRequired,
-  messageHide: PropTypes.func.isRequired
+  id: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  shadow: PropTypes.string,
+  setSelectedItem: PropTypes.func.isRequired
 }
-
-// Component State
-function itemState(state) {
-  return {
-    user: state.user
-  }
-}
-
 
 export default Item
 
