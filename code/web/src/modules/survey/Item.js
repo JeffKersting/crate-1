@@ -22,7 +22,6 @@ class Item extends PureComponent {
 
     this.state = {
       isLoading: false,
-      style:
     }
   }
 
@@ -30,7 +29,7 @@ class Item extends PureComponent {
   validateUserStyle = (crateId) => {
 
     if(true) {
-      onClickSubscribe(createId)
+      onClickSubscribe(crateId)
       return
     } else {
       this.setState({
@@ -78,4 +77,7 @@ function itemState(state) {
   }
 }
 
-export default connect(itemState, { create, messageShow, messageHide })(withRouter(Item))
+
+export default Item
+
+// export default connect(itemState, { crate, messageShow, messageHide })(withRouter(Item))

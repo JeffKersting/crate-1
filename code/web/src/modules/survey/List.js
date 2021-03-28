@@ -12,12 +12,12 @@ import { H3 } from '../../ui/typography'
 import { grey, grey2 } from '../../ui/common/colors'
 
 // App Imports
-import { getList as getSurveyList } from './api/actions'
+// import { getList as getSurveyList } from './api/actions'
 import Loading from '../common/Loading'
 import EmptyMessage from '../common/EmptyMessage'
 import SurveyItem from './Item'
-import { create } from '../survey/api/actions'
-import { routeApi } from '../../../setup/routes'
+// import { create } from '../survey/api/actions'
+import { routeApi } from '../../setup/routes'
 
 // Component
 class List extends PureComponent {
@@ -60,13 +60,13 @@ class List extends PureComponent {
 
   onClick = (event) => {
     const target = event.target.id
-    this.setState({target: state.target++)
+    this.setState({target: this.state.target += 1})
     setDisplay()
   }
 
   filterSurveyDisplay = () => {
     if(this.state.genderStyle === 0) {
-      const nonBinary this.state.surveyData.filter(data => data.type === this.state.display)
+      const nonBinary = this.state.surveyData.filter(data => data.type === this.state.display)
       return [nonBinary[0], nonBinary[3], nonBinary[5]]
     } else {
       return this.state.surveyData.filter(data =>
@@ -148,4 +148,6 @@ function listState(state) {
   }
 }
 
-export default connect(listState, { getSurveyList })(List)
+export default List
+
+// export default connect(listState, { getSurveyList })(List)
