@@ -65,9 +65,9 @@ class List extends PureComponent {
   }
 
   filterSurveyDisplay = () => {
-    const nonBinary = []
     if(this.state.genderStyle === 0) {
-
+      const nonBinary this.state.surveyData.filter(data => data.type === this.state.display)
+      return [nonBinary[0], nonBinary[3], nonBinary[5]]
     } else {
       return this.state.surveyData.filter(data =>
         data.gender === this.state.genderStyle || data.type === this.state.display
@@ -148,4 +148,4 @@ function listState(state) {
   }
 }
 
-export default connect(listState, { getCratesList })(List)
+export default connect(listState, { getSurveyList })(List)
