@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('products', {
+  return sequelize.define('styles', {
     name: {
       type: DataTypes.STRING
     },
@@ -11,6 +11,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     type: {
       type: DataTypes.STRING
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
   })
 }
