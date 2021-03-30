@@ -18,7 +18,6 @@ import { routeImage } from '../../setup/routes/index'
 
 // Component
 const Item = ({id, image, shadow, setSelectedItem}) => {
-  console.log(setSelectedItem)
   return (
     <GridCell style={{height: '250px'}}>
         <Tile id={id} image={routeImage + image} onClick={event => setSelectedItem(event)} shadow={shadow || level0}/> 
@@ -35,5 +34,3 @@ Item.propTypes = {
 }
 
 export default Item
-
-// export default connect(itemState, { crate, messageShow, messageHide })(withRouter(Item))
