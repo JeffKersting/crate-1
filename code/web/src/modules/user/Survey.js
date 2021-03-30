@@ -3,10 +3,10 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
-import axios from 'axios'
-import { query, mutation } from 'gql-query-builder'
 import List from '../survey/List'
 import { genderPreferences } from '../survey/genderPreferences'
+import axios from 'axios'
+import { query, mutation } from 'gql-query-builder'
 
 // UI Imports
 import { Grid, GridCell } from '../../ui/grid'
@@ -14,11 +14,9 @@ import { H3 } from '../../ui/typography'
 import { grey, grey2 } from '../../ui/common/colors'
 
 // App Imports
-// import { getList as getSurveyList } from './api/actions'
+import { routeApi } from '../../setup/routes'
 import Loading from '../common/Loading'
 import EmptyMessage from '../common/EmptyMessage'
-// import { create } from '../survey/api/actions'
-import { routeApi } from '../../setup/routes'
 class Survey extends PureComponent{
     constructor(props) {
         super(props)
@@ -26,31 +24,32 @@ class Survey extends PureComponent{
         this.state = {
           genderStyle: null,
           surveyData: [],
-          casual: 0,
-          edgy: 0,
-          streetwear: 0,
+          Casual: 0,
+          Edgy: 0,
+          Streetwear: 0,
           display: '',
-          result: ''
+          result: '',
+          surveyPrompts: 0
         }
       }
     
-      setDisplay = () => {
-        const total = this.state.casual + this.state.edgy + this.state.streetwear
+      setDisplay = (total) => {
+        console.log('SET DISPLAY', total)
         switch(total) {
             // conditional for the gender and style on case 0 and 5
-          case 0:
-            this.setState({display: 'shirts'})
-            break
           case 1:
-            this.setState({display: 'bottoms'})
+            this.setState({display: 'shirt'})
             break
           case 2:
-            this.setState({display: 'accessories'})
+            this.setState({display: 'bottom'})
             break
           case 3:
-            this.setState({display: 'shoes'})
+            this.setState({display: 'accessory'})
             break
           case 4:
+            this.setState({display: 'shoe'})
+            break
+          case 5:
             this.setState({display: 'confirmation'}) 
             break 
         }
@@ -68,10 +67,14 @@ class Survey extends PureComponent{
                 this.setState({genderStyle: 2})
                 break
             default:
-                this.setState({target: this.state.target += 1})
+            this.setState(prevState => ({
+              [selection]: prevState[selection] + 1
+              }))
                 break
         }
-        this.setDisplay()
+        const total = this.state.surveyPrompts + 1
+        this.setState({surveyPrompts: total})
+        this.setDisplay(total)
       }
     
       filterSurveyDisplay = () => {
@@ -82,9 +85,10 @@ class Survey extends PureComponent{
           const nonBinary = this.state.surveyData.filter(data => data.type === this.state.display)
           return [nonBinary[0], nonBinary[3], nonBinary[5]]
         } else {
-          return this.state.surveyData.filter(data =>
+          const result = this.state.surveyData.filter(data =>
             data.gender === this.state.genderStyle && data.type === this.state.display
-          )
+            )
+          return result
         }
       }
     
@@ -96,6 +100,17 @@ class Survey extends PureComponent{
     
       retakeSurvey() {
         // clear increments and gender
+      }
+
+      componentDidMount = () => {
+        return axios.post(routeApi, query({
+          operation: 'styles',
+          fields: ['id','name', 'image', 'gender', 'type']
+        }))
+        .then(response => {
+          this.setState({surveyData: response.data.data.styles})
+          
+        })
       }
 
     render() {
