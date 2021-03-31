@@ -4,7 +4,7 @@ import graphqlHTTP from 'express-graphql';
 import schema from '../../../setup/schema';
 
 
-describe('user queries', () => {
+describe('style queries', () => {
   let server = express();
 
   beforeAll(() => {
