@@ -40,7 +40,6 @@ class List extends PureComponent {
 
   render() {
     const imageData = this.displayImage()
-    console.log(this.props.data)
     return (
       <React.Fragment>
         <Grid> 
