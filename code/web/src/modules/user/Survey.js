@@ -17,6 +17,7 @@ import { grey, grey2 } from '../../ui/common/colors'
 import { routeApi } from '../../setup/routes'
 import Loading from '../common/Loading'
 import EmptyMessage from '../common/EmptyMessage'
+
 class Survey extends PureComponent{
     constructor(props) {
         super(props)
@@ -178,5 +179,6 @@ class Survey extends PureComponent{
       ) 
     }
 } 
+
 
 export default Survey;
