@@ -10,7 +10,7 @@ import { query, mutation } from 'gql-query-builder'
 
 // UI Imports
 import { Grid, GridCell } from '../../ui/grid'
-import { H3 } from '../../ui/typography'
+import { H1, H3 } from '../../ui/typography'
 import { grey, grey2 } from '../../ui/common/colors'
 
 // App Imports
@@ -34,9 +34,7 @@ class Survey extends PureComponent{
       }
     
       setDisplay = (total) => {
-        console.log('SET DISPLAY', total)
         switch(total) {
-            // conditional for the gender and style on case 0 and 5
           case 1:
             this.setState({display: 'shirt'})
             break
@@ -49,9 +47,9 @@ class Survey extends PureComponent{
           case 4:
             this.setState({display: 'shoe'})
             break
-          case 5:
-            this.setState({display: 'confirmation'}) 
-            break 
+          // case 5:
+          //   this.determineUserStyle()
+          //   break 
         }
       }
     
@@ -81,14 +79,27 @@ class Survey extends PureComponent{
         if (this.state.genderStyle === null) {
             return genderPreferences
         } else if (this.state.genderStyle === 0) {
-          //  Returning non-existent data - Non-binary survey page won't show
-          const nonBinary = this.state.surveyData.filter(data => data.type === this.state.display)
-          return [nonBinary[0], nonBinary[3], nonBinary[5]]
+            const nonBinary = this.state.surveyData.filter(data => data.type === this.state.display)
+            return [nonBinary[0], nonBinary[3], nonBinary[5]]
         } else {
-          const result = this.state.surveyData.filter(data =>
-            data.gender === this.state.genderStyle && data.type === this.state.display
+            const result = this.state.surveyData.filter(data =>
+              data.gender === this.state.genderStyle && data.type === this.state.display
             )
-          return result
+            return result
+        }
+      }
+
+      determineUserStyle = () => {
+        const total = this.state.Casual + this.state.Edgy + this.state.Streetwear
+        if(total === 4){
+          const styles = [this.state.Casual, this.state.Edgy, this.state.Streetwear]
+          const topSelected = styles.sort((a, b) => b - a)[0]
+          const result = Object.keys(this.state).find(e => {
+            if(!e.includes('genderStyle')){
+             return this.state[e] === topSelected
+            }
+          })
+          this.setState({result: result})
         }
       }
     
@@ -98,8 +109,16 @@ class Survey extends PureComponent{
       // conditional check (if crateId exists subscribe)
       }
     
-      retakeSurvey() {
-        // clear increments and gender
+      retakeSurvey = () => {
+        this.setState({
+          genderStyle: null,
+          Casual: 0,
+          Edgy: 0,
+          Streetwear: 0,
+          display: '',
+          result: '',
+          surveyPrompts: 0
+        })
       }
 
       componentDidMount = () => {
@@ -111,6 +130,10 @@ class Survey extends PureComponent{
           this.setState({surveyData: response.data.data.styles})
           
         })
+      }
+
+      componentDidUpdate = () => {
+        this.determineUserStyle()
       }
 
     render() {
@@ -139,9 +162,10 @@ class Survey extends PureComponent{
                         : this.state.result.length
                             ? 
                               <div>
-                                  {/* <Confirmation /> */}
+                                  <H1>Thank you for taking our style survey!</H1>
+                                  <H3>{`Your style is ${this.state.result}`}</H3>
                                   <button>Submit</button>
-                                  <button>Retake</button>
+                                  <button onClick={this.retakeSurvey}>Retake</button>
                               </div>
                             : !this.state.result.length
                               ?
@@ -158,53 +182,5 @@ class Survey extends PureComponent{
       ) 
     }
 } 
-
-// Runs on client only
-// componentDidMount() {
-//   return axios.post(routeApi, query({
-//     operation: '',
-//     fields: ['id', 'name', 'image', 'gender']
-//   }))
-//     .then(response => {
-//       setState({surveyData: response.styles})
-//     })
-// }
-
-// render() {
-//   return (
-//     <div>
-//       {/* SEO */}
-//       <Helmet>
-//         <title>Style Survey</title>
-//       </Helmet>
-
-//       {/* Top title bar */}
-//       <Grid style={{ backgroundColor: grey }}>
-//         <GridCell style={{ padding: '2em', textAlign: 'center' }}>
-//           <H3 font="secondary">Style Survey</H3>
-//           <p style={{ marginTop: '1em', color: grey2 }}>Select {this.state.display} style preference</p>
-//         </GridCell>
-//       </Grid>
-
-//       {/* Crate list */}
-//       <Grid>
-//         <GridCell>
-//           {
-//             this.state.surveyData.length
-//               ? <Loading/>
-//               : this.state.surveyData.length > 0
-//                   ? this.state.surveyData.map(info => (
-//                     <div key={info.id} style={{ margin: '2em', float: 'left' }}>
-//                       <SurveyItem info={info}/>
-//                     </div>
-//                   ))
-//                   : <EmptyMessage message="No survey to show" />
-//           }
-//         </GridCell>
-//       </Grid>
-//     </div>
-//   )
-// }
-// }
 
 export default Survey;
