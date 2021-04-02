@@ -8,6 +8,7 @@ import List from '../survey/List'
 import { genderPreferences } from '../survey/genderPreferences'
 import axios from 'axios'
 import { query, mutation } from 'gql-query-builder'
+import userRoutes from '../../setup/routes/user'
 
 // UI Imports
 import { Grid, GridCell } from '../../ui/grid'
@@ -106,17 +107,39 @@ class Survey extends PureComponent{
       }
 
       onSubmit = () => {
-        this.props.location.state === undefined ? setStyle() : setStyleSubscribe()
+        const crateId = this.props.location.state
+        crateId === undefined ? this.setStyle() : this.setStyleSubscribe(crateId)
       }
 
       setStyle = () => {
-        return axios.post(routeApi, query({
-          operation: 'userUpdate'
-        }))
+        const userDetails = this.props.user.details
+        userDetails.style = this.state.result
+        this.props.updateUserStyle(userDetails)
+        this.props.history.push(userRoutes.subscriptions.path)
       }
 
-      setStyleSubscribe = () => {
+      setStyleSubscribe = (crateId) => {
 
+        this.props.messageShow('Subscribing, please wait...')
+        this.props.create({ crateId })
+          .then(response => {
+            if (response.data.errors && response.data.errors.length > 0) {
+              this.props.messageShow(response.data.errors[0].message)
+            } else {
+              this.props.messageShow('Subscribed successfully.')
+            }
+          })
+          .catch(error => {
+            this.props.messageShow('There was some error subscribing to this crate. Please try again.')
+          })
+          .then(() => {
+            window.setTimeout(() => {
+              this.props.messageHide()
+            }, 5000)
+          })
+          .then(() => {
+            this.setStyle()
+          })
       }
 
       retakeSurvey = () => {
@@ -204,7 +227,8 @@ class Survey extends PureComponent{
         </div>
       )
     }
-}
+  }
+
 
 function surveyState(state) {
   return {
@@ -212,4 +236,4 @@ function surveyState(state) {
   }
 }
 
-export default connect(surveyState, { messageShow, messageHide })(withRouter(Survey))
+export default connect(surveyState, { messageShow, messageHide, create, updateUserStyle })(withRouter(Survey))
