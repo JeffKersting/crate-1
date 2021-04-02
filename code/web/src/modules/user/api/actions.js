@@ -125,6 +125,7 @@ export function updateUserStyle(userDetails) {
   const token = window.localStorage.getItem('token')
   const styleObject = { id: userDetails.id, style: userDetails.style }
   setUser(token, userDetails)
+  window.localStorage.setItem('user', JSON.stringify(userDetails))
   return dispatch => {
     return axios.post(routeApi, mutation({
       operation: 'userUpdate',

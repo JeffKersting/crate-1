@@ -66,8 +66,7 @@ class Item extends PureComponent {
   validateUserStyle = () => {
     event.preventDefault()
     const crateId = parseInt(event.target.id)
-    // console.log(this.state.user.style)
-    if(this.props.user.style) {
+    if(this.props.user.details.style) {
       this.onClickSubscribe(crateId)
       return
     } else {

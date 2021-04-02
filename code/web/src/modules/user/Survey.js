@@ -119,7 +119,6 @@ class Survey extends PureComponent{
       }
 
       setStyleSubscribe = (crateId) => {
-
         this.props.messageShow('Subscribing, please wait...')
         this.props.create({ crateId })
           .then(response => {
@@ -155,6 +154,7 @@ class Survey extends PureComponent{
       }
 
       componentDidMount = () => {
+        console.log(this.props.user.details)
         window.setTimeout(() => {
           this.props.messageHide()
         }, 1000)
