@@ -2,11 +2,13 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import List from '../survey/List'
 import { genderPreferences } from '../survey/genderPreferences'
 import axios from 'axios'
 import { query, mutation } from 'gql-query-builder'
+import userRoutes from '../../setup/routes/user'
 
 // UI Imports
 import { Grid, GridCell } from '../../ui/grid'
@@ -17,11 +19,14 @@ import { grey, grey2 } from '../../ui/common/colors'
 import { routeApi } from '../../setup/routes'
 import Loading from '../common/Loading'
 import EmptyMessage from '../common/EmptyMessage'
+import { messageShow, messageHide } from '../common/api/actions'
+import { updateUserStyle } from './api/actions'
+import { create } from '../subscription/api/actions'
 
 class Survey extends PureComponent{
     constructor(props) {
         super(props)
-    
+
         this.state = {
           genderStyle: null,
           surveyData: [],
@@ -33,7 +38,7 @@ class Survey extends PureComponent{
           surveyPrompts: 0
         }
       }
-    
+
       setDisplay = (total) => {
         switch(total) {
           case 1:
@@ -50,7 +55,7 @@ class Survey extends PureComponent{
             break
         }
       }
-    
+
       handleClick = (selection) => {
         switch (selection)   {
             case 'Non-Binary':
@@ -72,7 +77,7 @@ class Survey extends PureComponent{
         this.setState({surveyPrompts: total})
         this.setDisplay(total)
       }
-    
+
       filterSurveyDisplay = () => {
         if (this.state.genderStyle === null) {
             return genderPreferences
@@ -100,12 +105,42 @@ class Survey extends PureComponent{
           this.setState({result: result})
         }
       }
-    
-      onSubmit() {
-        //AXIOS.POST(USER STYLE)
-        //PASS CRATEID TO SUBMIT - TO SUBSCRIPTIONS
+
+      onSubmit = () => {
+        const crateId = this.props.location.state
+        crateId === undefined ? this.setStyle() : this.setStyleSubscribe(crateId)
       }
-    
+
+      setStyle = () => {
+        const userDetails = this.props.user.details
+        userDetails.style = this.state.result
+        this.props.updateUserStyle(userDetails)
+        this.props.history.push(userRoutes.subscriptions.path)
+      }
+
+      setStyleSubscribe = (crateId) => {
+        this.props.messageShow('Subscribing, please wait...')
+        this.props.create({ crateId })
+          .then(response => {
+            if (response.data.errors && response.data.errors.length > 0) {
+              this.props.messageShow(response.data.errors[0].message)
+            } else {
+              this.props.messageShow('Subscribed successfully.')
+            }
+          })
+          .catch(error => {
+            this.props.messageShow('There was some error subscribing to this crate. Please try again.')
+          })
+          .then(() => {
+            window.setTimeout(() => {
+              this.props.messageHide()
+            }, 5000)
+          })
+          .then(() => {
+            this.setStyle()
+          })
+      }
+
       retakeSurvey = () => {
         this.setState({
           genderStyle: null,
@@ -119,13 +154,27 @@ class Survey extends PureComponent{
       }
 
       componentDidMount = () => {
+        console.log(this.props.user.details)
+        window.setTimeout(() => {
+          this.props.messageHide()
+        }, 1000)
         return axios.post(routeApi, query({
           operation: 'styles',
           fields: ['id','name', 'image', 'gender', 'type']
         }))
         .then(response => {
           this.setState({surveyData: response.data.data.styles})
-          
+        })
+        .catch(error => {
+          this.props.messageShow('There was some error displaying the survey. Please try again.')
+        })
+        .then(() => {
+          this.setState({
+            isLoading: false
+          })
+          window.setTimeout(() => {
+            this.props.messageHide()
+          }, 5000)
         })
       }
 
@@ -157,7 +206,7 @@ class Survey extends PureComponent{
                     false // this will be the isLoading from API call
                         ? <Loading/>
                         : this.state.result.length
-                            ? 
+                            ?
                               <div>
                                   <H1>Thank you for taking our style survey!</H1>
                                   <H3>{`Your style is ${this.state.result}`}</H3>
@@ -174,11 +223,17 @@ class Survey extends PureComponent{
                 </GridCell>
             </Grid>
 
-          
+
         </div>
-      ) 
+      )
     }
-} 
+  }
 
 
-export default Survey;
+function surveyState(state) {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(surveyState, { messageShow, messageHide, create, updateUserStyle })(withRouter(Survey))
