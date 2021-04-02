@@ -11,6 +11,7 @@ export const LOGIN_REQUEST = 'AUTH/LOGIN_REQUEST'
 export const LOGIN_RESPONSE = 'AUTH/LOGIN_RESPONSE'
 export const SET_USER = 'AUTH/SET_USER'
 export const LOGOUT = 'AUTH/LOGOUT'
+export const SURVEY_DATA = 'AUTH/SURVEY_DATA'
 
 // Actions
 
@@ -25,6 +26,8 @@ export function setUser(token, user) {
   return { type: SET_USER, user }
 }
 
+
+
 // Login a user using credentials
 export function login(userCredentials, isLoading = true) {
   return dispatch => {
@@ -36,7 +39,7 @@ export function login(userCredentials, isLoading = true) {
     return axios.post(routeApi, query({
       operation: 'userLogin',
       variables: userCredentials,
-      fields: ['user {name, email, role}', 'token']
+      fields: ['user {id, name, email, role, style}', 'token']
     }))
       .then(response => {
         let error = ''
@@ -114,6 +117,20 @@ export function getGenders() {
     return axios.post(routeApi, query({
       operation: 'userGenders',
       fields: ['id', 'name']
+    }))
+  }
+}
+
+export function updateUserStyle(userDetails) {
+  const token = window.localStorage.getItem('token')
+  const styleObject = { id: userDetails.id, style: userDetails.style }
+  setUser(token, userDetails)
+  window.localStorage.setItem('user', JSON.stringify(userDetails))
+  return dispatch => {
+    return axios.post(routeApi, mutation({
+      operation: 'userUpdate',
+      variables: styleObject,
+      fields: ['id', 'style']
     }))
   }
 }

@@ -28,6 +28,9 @@ class Item extends PureComponent {
     }
   }
 
+
+
+
   onClickSubscribe = (crateId) => {
     this.setState({
       isLoading: true
@@ -59,6 +62,22 @@ class Item extends PureComponent {
       })
   }
 
+  // this.state.user.style EVENTUAL CHECK
+  validateUserStyle = () => {
+    event.preventDefault()
+    const crateId = parseInt(event.target.id)
+    if(this.props.user.details.style) {
+      this.onClickSubscribe(crateId)
+      return
+    } else {
+      this.setState({
+        isLoading: true
+      })
+      this.props.messageShow('Redirecting to survey page...')
+      this.props.history.push(userRoutes.survey.path, crateId)
+    }
+  }
+
   render() {
     const { id, name, description } = this.props.crate
     const { isLoading } = this.state
@@ -77,7 +96,8 @@ class Item extends PureComponent {
           <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
             <Button
               theme="primary"
-              onClick={this.onClickSubscribe.bind(this, id)}
+              id={id}
+              onClick={this.validateUserStyle}
               type="button"
               disabled={ isLoading }
             >
