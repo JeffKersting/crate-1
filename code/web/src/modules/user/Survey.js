@@ -14,6 +14,7 @@ import userRoutes from '../../setup/routes/user'
 import { Grid, GridCell } from '../../ui/grid'
 import { H1, H3 } from '../../ui/typography'
 import { grey, grey2 } from '../../ui/common/colors'
+import Button from '../../ui/button/button'
 
 // App Imports
 import { routeApi } from '../../setup/routes'
@@ -154,7 +155,6 @@ class Survey extends PureComponent{
       }
 
       componentDidMount = () => {
-        console.log(this.props.user.details)
         window.setTimeout(() => {
           this.props.messageHide()
         }, 1000)
@@ -185,17 +185,17 @@ class Survey extends PureComponent{
     render() {
       const filteredSurveyResults = this.filterSurveyDisplay()
         return (
-        <div>
+        <div style={{ height: '80vh', display: 'flex', flexDirection: 'column'}}>
             {/* SEO */}
             <Helmet>
                 <title>Style Survey</title>
             </Helmet>
 
             {/* Top title bar */}
-            <Grid style={{ backgroundColor: grey }}>
+            <Grid style={{ backgroundColor: grey, marginBottom: '5rem' }}>
                 <GridCell style={{ padding: '2em', textAlign: 'center' }}>
                     <H3 font="secondary">Style Survey</H3>
-                    <p style={{ marginTop: '1em', color: grey2 }}>Select {this.state.display} style preference</p>
+                    {!this.state.result && <p style={{ marginTop: '1em', color: grey2 }}>Select {this.state.display} style preference</p>}
                 </GridCell>
             </Grid>
 
@@ -207,11 +207,12 @@ class Survey extends PureComponent{
                         ? <Loading/>
                         : this.state.result.length
                             ?
-                              <div>
-                                  <H1>Thank you for taking our style survey!</H1>
+                              <div style={{ height: '50vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly'}}>
+                                  <H1 style={{ textAlign: 'center' }}>Thank you for taking our style survey!</H1>
                                   <H3>{`Your style is ${this.state.result}`}</H3>
-                                  <button onClick={this.onSubmit}>Submit</button>
-                                  <button onClick={this.retakeSurvey}>Retake</button>
+                
+                                  <Button onClick={this.onSubmit} theme='primary'>Submit</Button>
+                                  <Button onClick={this.retakeSurvey} theme='secondary'>Retake</Button>
                               </div>
                             : !this.state.result.length
                               ?
@@ -222,8 +223,6 @@ class Survey extends PureComponent{
                     }
                 </GridCell>
             </Grid>
-
-
         </div>
       )
     }
