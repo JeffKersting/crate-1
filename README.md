@@ -1,5 +1,3 @@
-![Crate](https://raw.githubusercontent.com/atulmy/atulmy.github.io/master/images/crate/hero-with-link.png)
-
 # Crate 👕👖📦
 _open sourced project from [Crate](https://github.com/atulmy/crate), with a plan to contribute to a `user style survey` to better user experience. This was our first time with a `cross pollenated team`, working with both Frontend and Backend Developers._
 
