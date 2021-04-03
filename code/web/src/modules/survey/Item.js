@@ -17,10 +17,12 @@ import { routeImage } from '../../setup/routes/index'
 
 
 // Component
-const Item = ({id, image, shadow, setSelectedItem}) => {
+const Item = ({id, image, border, setSelectedItem}) => {
   return (
-    <GridCell style={{height: '250px'}}>
-        <Tile id={id} image={routeImage + image} onClick={event => setSelectedItem(event)} shadow={shadow || level0}/> 
+    <GridCell style={{height: '250px', margin: '.5rem'}}>
+        <Card style={{height: '100%', width: '100%'}} border={border}>
+          <Tile id={id} image={routeImage + image} onClick={event => setSelectedItem(event)} style={{ backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}/> 
+        </Card>
     </GridCell>
   )
 }
