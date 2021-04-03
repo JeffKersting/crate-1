@@ -5,7 +5,8 @@ import PropTypes from 'prop-types'
 // UI Imports
 import { Grid, GridCell } from '../../ui/grid'
 import { level3 } from '../../ui/common/shadows'
- 
+import Button from '../../ui/button/button'
+
 // App Imports
 import Item from '../../modules/survey/Item'
 
@@ -18,11 +19,15 @@ class List extends PureComponent {
       selected: ''
     }
   }  
+
+  componentDidUpdate = () => {
+    this.displayImage()
+  }
   
   displayImage = () => {
     return this.props.data.map(item => {
-      if (item.id === this.state.selected) {
-        return <Item id={item.name} image={item.image} setSelectedItem={this.setSelectedItem} shadow={level3} />
+      if (item.name === this.state.selected) {
+        return <Item id={item.name} image={item.image} setSelectedItem={this.setSelectedItem} border={true} />
       } else {
         return <Item id={item.name} image={item.image} setSelectedItem={this.setSelectedItem} />
       }
@@ -36,16 +41,17 @@ class List extends PureComponent {
 
   handleClick = () => {
     this.props.handleClick(this.state.selected)
+    this.setState({ selected: ''})
   }
 
   render() {
     const imageData = this.displayImage()
     return (
       <React.Fragment>
-        <Grid> 
+        <Grid > 
             {imageData}
         </Grid>
-        <button onClick={this.handleClick}>Next</button>
+        <Button onClick={this.handleClick} theme='primary' disabled={!this.state.selected.length} style={{marginLeft:'50%', transform: 'translateX(-50%)'}}>Next</Button>
       </React.Fragment>
     )
   }

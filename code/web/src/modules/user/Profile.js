@@ -36,9 +36,15 @@ const Profile = (props) => (
 
         <p style={{ color: grey2, marginBottom: '2em' }}>{props.user.details.email}</p>
 
+        {props.user.details.style && <p style={{ color: grey2, marginBottom: '2em' }}>Style: {props.user.details.style}</p>}
+
         <Link to={userRoutes.subscriptions.path}>
           <Button theme="primary">Subscriptions</Button>
         </Link>
+
+        {props.user.details.style && <Link to={userRoutes.survey.path}>
+          <Button style={{marginLeft: '1em'}} theme="primary">Reset Style</Button>
+        </Link>}
 
         <Button theme="secondary" onClick={props.logout} style={{ marginLeft: '1em' }}>Logout</Button>
       </GridCell>
