@@ -7,7 +7,7 @@ _open sourced project from [Crate](https://github.com/atulmy/crate), with a plan
 - Jeff Kersting: [github profile](https://github.com/JeffKersting/)|[linkedIn](https://www.linkedin.com/in/jeff-kersting/)
 - Cameron Aregon: [github profile](https://github.com/camaragon)|[linkedIn](https://www.linkedin.com/in/camaragon/)
 - Kevin Hartmann: [github profile](https://github.com/kevinhartmann23)|[linkedIn](https://www.linkedin.com/in/kevin-hartmann/)
-- 
+
 ### Project Managers
 - Dione Wilson
 - David Whitaker
@@ -126,11 +126,14 @@ _open sourced project from [Crate](https://github.com/atulmy/crate), with a plan
 
 ## Challenges & Wins
 ### Challenges
-- **Getting to know FE File Structure and Existing Naming Conventions** This was something proven to be rather confusing for the Frontend team. Although we took the time to plan and study the file structure, naming convetions became rather confusing from the existing repository.  
+- **Getting to know FE File Structure and Existing Naming Conventions** This was something proven to be rather confusing for the Frontend team. Although we took the time to plan and study the file structure, naming conventions became rather confusing from the existing repository.  
+- **Jumping into an existing codebase in an unfamiliar language** For the Backend team, going from an opinionated framework such as Ruby on Rails to Node/Express held some initial challenges. The learning curve was somewhat high initially due to figuring out what the framework DOES NOT do for us. After taking notes as to what we have to code manually(setup, teardown, explicit import/exports, etc), we thrived and delivered.
+- **Setting up GraphQL for the first time** GraphQL took a few days for both teams to become proficient enough to maneuver. Exploratory time was necessary as GraphQL is essentially another language itself. From getting to know the preferred POST request to refactoring a single schema file into a type, model, query, mutation, and resolver file all held their own challenges. Testing GraphQL was unfamiliar also, along with utilizing Jest and Supertest.
 
 ### Wins/Reflections
 - **Working as a full cross poll team, and enjoying our team environment**
 - **Organization, Planning, Communication:** Workflow was smooth, communication was strong, documents were shared! Everyone was ready to help each other out and eager to learn from one another. Our planning was thourough and set us up for a really smooth, successful project. 
+- **We delivered** We completed a feature from start to finish while jumping into unfamiliar waters. The knowledge we knew previous to this project held relevance to our tasks. We were as resourceful as could be in order to succeed.
 
 ## Appreciation 
 
