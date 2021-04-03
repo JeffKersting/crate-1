@@ -4,11 +4,11 @@
 _open sourced project from [Crate](https://github.com/atulmy/crate), with a plan to contribute to a `user style survey` to better user experience. This was our first time with a `cross pollenated team`, working with both Frontend and Backend Developers._
 
 ### Contributors
-- Samuel Yeo: [github profile](https://github.com/SK-Sam):[linkedIn](https://www.linkedin.com/in/samuel-horishin-yeo/)
-- Ely Hess: [github profile](https://github.com/elyhess):[linkedIn](https://www.linkedin.com/in/ely-hess/)
-- Jeff Kersting: [github profile](https://github.com/JeffKersting/):[linkedIn](https://www.linkedin.com/in/jeff-kersting/)
-- Cameron Aregon: [github profile](https://github.com/camaragon):[linkedIn](https://www.linkedin.com/in/camaragon/)
-- Kevin Hartmann: [github profile](https://github.com/kevinhartmann23):[linkedIn](https://www.linkedin.com/in/kevin-hartmann/)
+- Samuel Yeo: [github profile](https://github.com/SK-Sam)|[linkedIn](https://www.linkedin.com/in/samuel-horishin-yeo/)
+- Ely Hess: [github profile](https://github.com/elyhess)|[linkedIn](https://www.linkedin.com/in/ely-hess/)
+- Jeff Kersting: [github profile](https://github.com/JeffKersting/)|[linkedIn](https://www.linkedin.com/in/jeff-kersting/)
+- Cameron Aregon: [github profile](https://github.com/camaragon)|[linkedIn](https://www.linkedin.com/in/camaragon/)
+- Kevin Hartmann: [github profile](https://github.com/kevinhartmann23)|[linkedIn](https://www.linkedin.com/in/kevin-hartmann/)
 - 
 ### Project Managers
 - Dione Wilson
