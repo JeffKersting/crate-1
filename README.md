@@ -126,7 +126,7 @@ _open sourced project from [Crate](https://github.com/atulmy/crate), with a plan
 
 ## Challenges & Wins
 ### Challenges
-- **Getting to know FE File Structure and Existing Naming Conventions** This wa ssomething proven to be rather confusing for the Frontend team. Although we took the time to plan and study the file structure, naming convetions became rather confusing from the existing repository.  
+- **Getting to know FE File Structure and Existing Naming Conventions** This was something proven to be rather confusing for the Frontend team. Although we took the time to plan and study the file structure, naming convetions became rather confusing from the existing repository.  
 
 ### Wins/Reflections
 - **Working as a full cross poll team, and enjoying our team environment**
